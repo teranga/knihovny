@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+
+    repositories {
+        mavenCentral()
+    }
+
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
+        }
+    }
+}
+
+
+
+subprojects {
+
+    sourceCompatibility = jdkVersion
+    targetCompatibility = jdkVersion
+
+
+    dependencies {
+
+        compile group: 'org.slf4j', name:'slf4j-api', version: '1.+'
+        
+	runtime group: 'ch.qos.logback', name:'logback-classic', version: '1.+'
+
+        testCompile ("junit:junit:4.12")
+        testCompile ('org.assertj:assertj-core:2.+')
+        testCompile ("org.mockito:mockito-core:1.+")
+        testCompile ("org.springframework:spring-test:4.1.6.RELEASE")
+    }
+
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
